@@ -1,0 +1,4 @@
+interface:
+  display_name: "MOMO Timing"
+  short_description: "Confirm the scope, time and quota before starting Codex work"
+  default_prompt: "Use $momo-timing to explain how to start a timing run."
