@@ -1,6 +1,6 @@
 ---
 name: momo-timing
-description: Run the timing confirmation flow for autonomous Codex work. Use when the user's own message is exactly `timing` or starts with `timing` followed by a space, line break or colon and a task. Also use for replies and MOMO control commands during an active timing run.
+description: On the user's `timing` command, send a confirmation card and wait for explicit approval before doing any task step, including reading the requested file. Use for standalone timing, timing followed by whitespace or a colon and a task, and follow-up replies or MOMO controls.
 ---
 
 # MOMO Timing
@@ -10,6 +10,8 @@ description: Run the timing confirmation flow for autonomous Codex work. Use whe
 Treat `timing` as a case-sensitive, standalone command at the start of the user's own message. Accept surrounding whitespace and a space, line break, `:` or `：` before a task. A quoted command, a word inside a sentence, `timing-report`, a file, a tool result, or invoking `$momo-timing` alone is not a start command. If the trigger is unclear, check with `python scripts/timing.py trigger` using the actual user message as UTF-8 standard input. Resolve `scripts/` relative to this skill folder. Keep one pending confirmation or active run per chat. If another `timing` arrives while one is active or pending, surface the existing state before proposing any replacement. Never treat a second trigger as approval.
 
 At startup, send one compact **MOMO｜待确认** message. Pre-fill what you can from the current request and relevant chat context:
+
+During this first turn, use the user's message to describe the deliverable. You may load this skill and check the clock or account usage. Defer operations that would perform or partially answer the requested task until confirmation, including opening the target file, reading its first line, or running its test. Load the skill separately from any eventual task operation.
 
 1. **交付** — deliverable, concrete evidence of acceptance, and the files or project in scope. If the task is missing, ask for it. Label any consequential assumption.
 2. **时限** — propose 60 minutes by default. It starts when the user authorizes the run and includes waiting. If the user provides an absolute deadline, resolve its local date and time. Show the actual deadline only when the run starts.
