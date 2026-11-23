@@ -1,0 +1,4 @@
+interface:
+  display_name: "DRAWING"
+  short_description: "MOMO’s SKILL 系列第二项，统一三线遗产地图、图册和论文组图的制图与交付"
+  default_prompt: "用 $momo-drawing 按最新版微观图与组会意见修订这套三线遗产图册。"
